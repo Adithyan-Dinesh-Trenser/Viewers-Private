@@ -36,7 +36,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Lint changed lines with reviewdog
-        uses: reviewdog/action-eslint@556a3fd261e47e5b290dfc71e22be582d90899f8 # v1.34.0
+        uses: reviewdog/action-eslint@2fee6dd72a5419ff4113f694e2068d2a03bb35dd # v1.33.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
