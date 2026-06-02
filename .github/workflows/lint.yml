@@ -42,5 +42,5 @@ jobs:
           reporter: github-check
           eslint_flags: '--max-warnings 0'
           filter_mode: diff_context
-          fail_on_error: true
+          fail_level: error
           level: error
