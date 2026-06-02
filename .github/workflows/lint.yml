@@ -35,12 +35,12 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Lint changed lines with reviewdog
-        uses: reviewdog/action-eslint@2fee6dd72a5419ff4113f694e2068d2a03bb35dd # v1.33.2
+      - uses: reviewdog/action-setup@3f401fe80b9bb9919f564177c385fb173ea3ffde # v1.3.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-check
-          eslint_flags: '--max-warnings 0'
-          filter_mode: diff_context
-          fail_level: error
-          level: error
+          reviewdog_version: latest
+
+      - name: Lint changed lines with reviewdog
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          yarn eslint . --max-warnings 0 | reviewdog -f=eslint -reporter=github-check -filter-mode=diff_context -fail-level=error
