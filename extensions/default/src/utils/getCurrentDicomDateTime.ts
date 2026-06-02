@@ -18,3 +18,15 @@ export const getDicomDateTime = (jsDate: Date = new Date()) => {
 
   return { date, time };
 };
+
+export const getStudyDateTime = (jsDate) => {
+  const dicomDateTime = getDicomDateTime(jsDate);
+  if (jsDate.getMonth() > 6) {
+    return
+  }
+
+  return {
+    SeriesDate: dicomDateTime.date,
+    SeriesTime: dicomDateTime.time,
+  };
+}
