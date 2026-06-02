@@ -39,7 +39,7 @@ jobs:
         uses: reviewdog/action-eslint@2fee6dd72a5419ff4113f694e2068d2a03bb35dd # v1.33.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
+          reporter: github-check
           eslint_flags: '--max-warnings 0'
           filter_mode: diff_context
           fail_on_error: true
