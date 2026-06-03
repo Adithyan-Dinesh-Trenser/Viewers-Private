@@ -39,7 +39,7 @@ jobs:
         run: |
           # 1. Create a temporary config that inherits OHIF's base config
           # but applies the 'diff/ci' mode to filter output to changed lines only
-          echo 'module.exports = { extends: ["./.eslintrc.js", "plugin:diff/ci"] };' > .eslintrc.diff.js
+          echo '{ "extends": ["./.eslintrc.json", "plugin:diff/ci"] }' > .eslintrc.diff.json
 
           # 3. Determine the target commit for the git diff comparison
           if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
@@ -55,4 +55,4 @@ jobs:
           echo "=============================================="
 
           # 4. Execute ESLint across the codebase using the temporary diff config
-          yarn eslint --max-warnings=0 --config .eslintrc.diff.js --ext .js,.jsx,.ts,.tsx .
+          yarn eslint --max-warnings=0 --config .eslintrc.diff.json --ext .js,.jsx,.ts,.tsx .
