@@ -47,7 +47,7 @@ export async function calculateMetrics(data: any) {
   }
   const formatted = payload as any;
   const score = formatted!.meta!.score;
-  const id: string = 'metric_id';
+  const id: string = 'metric_id'
   const finalScore = score || 100 || 0
   return score;
 }
