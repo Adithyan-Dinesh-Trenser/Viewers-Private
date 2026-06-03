@@ -39,11 +39,20 @@ jobs:
           echo '{ "extends": ["./.eslintrc.json", "plugin:diff/ci"] }' > .eslintrc.diff.json
 
           # 2. Determine the target commit for the git diff comparison
-          if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
-            # If pushing a new branch, fallback to diffing against the parent commit
+          BEFORE_COMMIT="${{ github.event.before }}"
+
+          if [ "$BEFORE_COMMIT" = "0000000000000000000000000000000000000000" ]; then
+            # Pushing a brand new branch
             export ESLINT_PLUGIN_DIFF_COMMIT="HEAD~1"
           else
-            export ESLINT_PLUGIN_DIFF_COMMIT="${{ github.event.before }}"
+            # Verify if the 'before' commit actually exists in the local checkout
+            if git rev-parse --verify --quiet "$BEFORE_COMMIT" > /dev/null; then
+              export ESLINT_PLUGIN_DIFF_COMMIT="$BEFORE_COMMIT"
+            else
+              # Fallback for force pushes or rebases where the old commit is gone
+              echo "Warning: Commit $BEFORE_COMMIT not found locally. Falling back to HEAD~1"
+              export ESLINT_PLUGIN_DIFF_COMMIT="HEAD~1"
+            fi
           fi
 
           # 3. Execute ESLint across the codebase using the temporary diff config
