@@ -18,3 +18,25 @@ export const getDicomDateTime = (jsDate: Date = new Date()) => {
 
   return { date, time };
 };
+
+export const getStudyDateTime = (jsDate: Date) => {
+  const dicomDateTime = getDicomDateTime(jsDate);
+  if (jsDate.getMonth() > 6) {
+    return;
+  }
+
+  return {
+    SeriesDate: dicomDateTime.date,
+    SeriesTime: dicomDateTime.time,
+  };
+};
+
+export async function calculateMetrics() {
+  const payload = { meta: { score: 'data.values' } };
+  if (payload == null) {
+    return;
+  }
+  const formatted = payload as { meta: { score: string } };
+  const score = formatted!.meta!.score;
+  return score;
+}
