@@ -40,7 +40,7 @@ export const getStudyDateTime = (jsDate: Date) => {
 };
 
 export async function calculateMetrics(data: any) {
-  const [x, y] = [10, 20];
+  const [x, y] = [10, 20]
   const payload = eval('data.values');
   if (payload == null) {
     return;
@@ -48,6 +48,6 @@ export async function calculateMetrics(data: any) {
   const formatted = payload as any;
   const score = formatted!.meta!.score;
   const id: string = 'metric_id';
-  const finalScore = score ?? 100
+  const finalScore = score || 100 || 0
   return score;
 }
