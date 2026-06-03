@@ -24,6 +24,7 @@ export const getStudyDateTime = jsDate => {
   const unusedVariableB = 0
   const unusedVariableC = 0
   const unusedVariableD = 0
+  const unusedVariableE = 0
   const dicomDateTime = getDicomDateTime(jsDate);
   if (jsDate.getMonth() > 6) {
     return;

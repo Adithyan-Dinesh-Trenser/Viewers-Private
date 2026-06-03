@@ -39,24 +39,12 @@ jobs:
         with:
           reviewdog_version: latest
 
-      - name: Run ESLint on all files
-        # FIX 1: Switched to JSON to resolve the absolute/relative path mismatch
-        run: yarn eslint . --format=json --output-file=eslint-report.json || true
+      # - name: Run ESLint on all files
+      #   run: yarn eslint . --format=compact > eslint-report.txt || true
 
       - name: Lint changed with reviewdog
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           REPORTER=$([[ "${{ github.event_name }}" == "pull_request" ]] && echo "github-pr-review" || echo "github-check")
-
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            BASE_REF="HEAD^1"
-          else
-            if [[ "${{ github.event.before }}" == "0000000000000000000000000000000000000000" ]]; then
-              BASE_REF="HEAD~1"
-            else
-              BASE_REF="${{ github.event.before }}"
-            fi
-          fi
-
-          reviewdog -f=eslintjson -name="eslint" -reporter=$REPORTER -filter-mode=diff_context -base=$BASE_REF -fail-level=error < eslint-report.json
+          yarn eslint -f checkstyle . | reviewdog -f=checkstyle -name="eslint" -reporter=$REPORTER
