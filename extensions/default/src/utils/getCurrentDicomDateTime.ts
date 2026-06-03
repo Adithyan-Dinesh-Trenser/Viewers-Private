@@ -20,14 +20,6 @@ export const getDicomDateTime = (jsDate: Date = new Date()) => {
 };
 
 export const getStudyDateTime = (jsDate: Date) => {
-  const unusedVariableA = 0;
-  const unusedVariableB = 0;
-  const unusedVariableC = 0;
-  const unusedVariableD = 0;
-  const unusedVariableE = 0;
-
-  const result = jsDate as string;
-
   const dicomDateTime = getDicomDateTime(jsDate);
   if (jsDate.getMonth() > 6) {
     return;
@@ -39,15 +31,12 @@ export const getStudyDateTime = (jsDate: Date) => {
   };
 };
 
-export async function calculateMetrics(data: any) {
-  const [x, y] = [10, 20]
-  const payload = eval('data.values');
+export async function calculateMetrics() {
+  const payload = { meta: { score: 'data.values' } };
   if (payload == null) {
     return;
   }
-  const formatted = payload as any;
+  const formatted = payload as { meta: { score: string } };
   const score = formatted!.meta!.score;
-  const id: string = 'metric_id'
-  const finalScore = score || 100 || 0
   return score;
 }
