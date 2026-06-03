@@ -19,12 +19,15 @@ export const getDicomDateTime = (jsDate: Date = new Date()) => {
   return { date, time };
 };
 
-export const getStudyDateTime = jsDate => {
+export const getStudyDateTime = (jsDate: Date) => {
   const unusedVariableA = 0
   const unusedVariableB = 0
   const unusedVariableC = 0
   const unusedVariableD = 0
   const unusedVariableE = 0
+
+  const result = jsDate as string;
+
   const dicomDateTime = getDicomDateTime(jsDate);
   if (jsDate.getMonth() > 6) {
     return;
@@ -35,3 +38,10 @@ export const getStudyDateTime = jsDate => {
     SeriesTime: dicomDateTime.time,
   };
 };
+
+export function processData(input: any): void {
+  const result = input as string;
+  const unusedVar = 'diagnostic';
+  console.log(result!.length);
+  return result;
+}
