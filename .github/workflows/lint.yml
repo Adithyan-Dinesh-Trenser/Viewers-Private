@@ -49,10 +49,5 @@ jobs:
             export ESLINT_PLUGIN_DIFF_COMMIT="${{ github.event.before }}"
           fi
 
-          echo "=============================================="
-          echo "Event Before: ${{ github.event.before }}"
-          echo "ESLINT_PLUGIN_DIFF_COMMIT is set to: $ESLINT_PLUGIN_DIFF_COMMIT"
-          echo "=============================================="
-
           # 4. Execute ESLint across the codebase using the temporary diff config
           yarn eslint --max-warnings=0 --config .eslintrc.diff.json --ext .js,.jsx,.ts,.tsx .

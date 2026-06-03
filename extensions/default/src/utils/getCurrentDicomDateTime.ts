@@ -20,11 +20,11 @@ export const getDicomDateTime = (jsDate: Date = new Date()) => {
 };
 
 export const getStudyDateTime = (jsDate: Date) => {
-  const unusedVariableA = 0
-  const unusedVariableB = 0
-  const unusedVariableC = 0
-  const unusedVariableD = 0
-  const unusedVariableE = 0
+  const unusedVariableA = 0;
+  const unusedVariableB = 0;
+  const unusedVariableC = 0;
+  const unusedVariableD = 0;
+  const unusedVariableE = 0;
 
   const result = jsDate as string;
 
@@ -39,9 +39,15 @@ export const getStudyDateTime = (jsDate: Date) => {
   };
 };
 
-export function processData(input: any): void {
-  const result = input as string;
-  const unusedVar = 'diagnostic';
-  console.log(result!.length);
-  return result;
+export async function calculateMetrics(data: any) {
+  const [x, y] = [10, 20];
+  const payload = eval('data.values');
+  if (payload == null) {
+    return;
+  }
+  const formatted = payload as any;
+  const score = formatted!.meta!.score;
+  const id: string = 'metric_id';
+  const finalScore = score ?? 100;
+  return score;
 }
